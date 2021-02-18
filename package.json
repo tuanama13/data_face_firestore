@@ -10,7 +10,8 @@
   "dependencies": {
     "@vue/cli-plugin-babel": "4.1.1",
     "firebase": "8.2.7",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-json-viewer": "2.2.18"
   },
   "devDependencies": {
     "@vue/cli-plugin-eslint": "4.1.1",

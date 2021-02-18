@@ -2,11 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import JsonViewer from "vue-json-viewer";
 
 Vue.config.productionTip = false;
-
-// Required for side-effects
-// require("firebase/firestore");
 
 var firebaseConfig = {
   apiKey: "AIzaSyCJn41f7pdCk9YhLB4Z00JSRAmSWx4wPUQ",
@@ -27,6 +25,9 @@ db.settings({
 
 Vue.prototype.$firebase = firebase;
 Vue.prototype.$db = db;
+
+// Import JsonViewer as a Vue.js plugin
+Vue.use(JsonViewer);
 
 new Vue({
   render: (h) => h(App)
