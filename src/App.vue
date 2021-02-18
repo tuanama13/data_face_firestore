@@ -1,9 +1,42 @@
 <template>
-  <div id="app">
-    <h1>Faces</h1>
-    <ol v-if="allFaces.length > 0" style="text-align: left">
+  <div id="app" class="container py-5 px-5">
+    <p class="text-4xl mb-5">Data Faces</p>
+
+    <div v-if="allFaces.length > 0" class="grid grid-cols-3 gap-4">
+      <div
+        v-for="(item, index) in allFaces"
+        :key="index"
+        class="rounded overflow-hidden shadow-lg"
+      >
+        <div v-for="(v, i) in item.faces" :key="i" class="px-6 py-4 text-left">
+          <div class="my-4">
+            <h4 class="font-bold text-xl mb-2">Bounding Box</h4>
+            <json-viewer
+              style="padding-top: 0px"
+              :value="v.boundingBox"
+            ></json-viewer>
+          </div>
+          <div class="my-4">
+            <h4 class="font-bold text-xl mb-2">Face Contour</h4>
+            <ul>
+              <li v-for="(vc, ic) in v.allContours" :key="ic">
+                <json-viewer style="padding-top: 0px" :value="vc"></json-viewer>
+              </li>
+            </ul>
+          </div>
+          <div class="my-4">
+            <h4 class="font-bold text-xl mb-2">Face Landmarks</h4>
+            <ul>
+              <li v-for="(vl, il) in v.allLandmarks" :key="il">
+                <json-viewer style="padding-top: 0px" :value="vl"></json-viewer>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <ol v-if="allFaces.length > 0" style="text-align: left">
       <li v-for="(item, index) in allFaces" :key="index">
-        <!-- {{ item.faces }} -->
         <div v-for="(v, i) in item.faces" :key="i">
           <h4>Bounding Box</h4>
           <json-viewer
@@ -25,7 +58,7 @@
           </ul>
         </div>
       </li>
-    </ol>
+    </ol> -->
   </div>
 </template>
 

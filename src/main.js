@@ -1,5 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
+// import "./css/index.css";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import JsonViewer from "vue-json-viewer";
