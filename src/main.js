@@ -1,9 +1,17 @@
 import Vue from "vue";
 import App from "./App.vue";
-// import "./css/index.css";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import JsonViewer from "vue-json-viewer";
+import VueApexCharts from 'vue-apexcharts'
+import _ from "lodash";
+
+
+
+
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 
 Vue.config.productionTip = false;
 
@@ -26,6 +34,7 @@ db.settings({
 
 Vue.prototype.$firebase = firebase;
 Vue.prototype.$db = db;
+Vue.prototype.$_ = _;
 
 // Import JsonViewer as a Vue.js plugin
 Vue.use(JsonViewer);
