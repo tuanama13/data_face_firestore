@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 <template>
   <div id="app" class="container py-5 px-5 mx-auto">
     <p class="text-4xl mb-5">Data Faces</p>
@@ -13,9 +14,13 @@
         :key="index"
         class="rounded overflow-hidden shadow-lg"
       >
+        
         <span class="py-5">{{ item.faces_name }}</span>
         <br>
         <span class="py-5">{{ item.createdAt }}</span>
+        <br>
+        <span>{{vectors[index]}}</span>
+        <br>
         <div v-for="(v, i) in item.faces" :key="i" class="px-6 py-4 text-left">
           <div class="my-4">
             <h4 class="font-bold text-xl mb-2">Bounding Box</h4>
@@ -60,6 +65,7 @@ export default {
       countFaces: [],
       selected_faces:'1',
       series: [],
+      vectors: [],
       chartOptions: {
         chart: {
           height: 350,
@@ -106,13 +112,11 @@ export default {
         this.countFaces = this.$_.chain(countFaces_).groupBy("faces_id").map((value, key) => ({ faces_id: key, faces_name:value[0].faces_name, data: value })).value();
       });
 
-
     },
     async fetchFaces() {
       await this.$db.collection("faces").where("faces_id", "==", this.selected_faces).onSnapshot((result) => {
         let allFaces_ = [];
         result.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
           allFaces_.push(doc.data());
         });
         this.allFaces = allFaces_;
@@ -126,12 +130,21 @@ export default {
             name: 'Face '+index,
             data : nodes
           }; 
-
-            this.series.push(series_value);
+          this.series.push(series_value);
         }
-        // console.log(series);
         this.isApexOpen = true;
+        for (const value of this.series) {
+          // eslint-disable-next-line no-unused-vars
+          var data = this.$_.chain(value.data).map((v) => ([v.x,v.y])).value();
+          // var vectors = this.$PCA.getEigenVectors(data);
+          let pca = new this.$ml(data);
+          this.vectors.push(pca.getExplainedVariance());
+        }
+        // var data = [[40,50,60],[50,70,60],[80,70,90],[50,60,80]];
+        // var vectors = this.$PCA.getEigenVectors(nodes);
       });
+
+
     },
   },
 };

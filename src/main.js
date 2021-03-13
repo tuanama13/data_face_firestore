@@ -5,9 +5,8 @@ import "firebase/firestore";
 import JsonViewer from "vue-json-viewer";
 import VueApexCharts from 'vue-apexcharts'
 import _ from "lodash";
-
-
-
+// import PCA from "pca-js";
+import {PCA} from "ml-pca";
 
 Vue.use(VueApexCharts)
 
@@ -35,6 +34,8 @@ db.settings({
 Vue.prototype.$firebase = firebase;
 Vue.prototype.$db = db;
 Vue.prototype.$_ = _;
+// Vue.prototype.$PCA = PCA;
+Vue.prototype.$ml = PCA;
 
 // Import JsonViewer as a Vue.js plugin
 Vue.use(JsonViewer);
